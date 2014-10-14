@@ -79,9 +79,8 @@
 (add-to-list 'auto-mode-alist '("\\.l$" . flex-mode))
 
 ;; bison-mode
-(require 'bison-mode)
-(add-to-list 'auto-mode-alist '("\\.y$" . bison-mode))
+;(require 'bison-mode)
+;(add-to-list 'auto-mode-alist '("\\.y$" . bison-mode))
 
 ;; ProofGeneral 4.2
-(load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
-
+(load-file "~/.emacs.d/elisp/ProofGeneral/generic/proof-site.el")
