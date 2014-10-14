@@ -22,42 +22,68 @@
   ;; scroll-barを非表示
   (scroll-bar-mode 0))
 
+;; color-theme
+(when (require 'color-theme nil t)
+  ;; テーマを読み込むための設定
+  (color-theme-initialize))
 
+;; 英語フォントはMenlo
+(set-face-attribute 'default nil
+		    :family "Menlo"
+		    :height 120)
 
+;; 日本語フォントはヒラギノ明朝
+(set-fontset-font 
+ nil 'japanese-jisx0208
+ (font-spec :family "Osaka"))
 
-;; Mac用フォント設定
-;; http://tcnksm.sakura.ne.jp/blog/2012/04/02/emacs/
+;; 半角と全角を1:2に
+(setq face-font-rescale-alist
+      '((".Menlo.*" . 1.0)
+	(".*Osaka.*" . 1.2)))
 
-;; 英語
-;(set-face-attribute 'default nil
-;           :family "Menlo" ;; font
-;          :height 100)    ;; font size
+;; ハイライト
+(defface my-hl-line-face
+  ;; 背景darkのときは背景色紺
+  '((((class color) (background dark))
+     (:background "Navyblue" t))
+    ;; 背景がlightなら背景色緑
+    (((class color) (background light))
+     (:background "LightGoldenrodYellow" t))
+    (t (:bold t)))
+  "hl-line's my face")
+(setq hl-line-face 'my-hl-line-face)
+(global-hl-line-mode t)
 
-;; 日本語
-;(set-fontset-font
-; nil 'japanese-jisx0208
-;; (font-spec :family "Hiragino Mincho Pro")) ;; font
-;  (font-spec :family "Hiragino Kaku Gothic ProN")) ;; font
- 
-;; 半角と全角の比を1:2に
-;(setq face-font-rescale-alist
-;      '((".*Hiragino_Mincho_pro.*" . 1.2)))
+;; paren-mode : 括弧の対応
+(setq show-paren-delay 0)
+(show-paren-mode t)
+;; parenのスタイル expressionは括弧内も強調
+(setq show-paren-style 'expression)
+;; フェイスの変更
+(set-face-background 'show-paren-match-face nil)
+(set-face-underline-p 'show-paren-match-face "yellow")
 
-;(set-background-color "#98bc98") ;; background color
-;(set-foreground-color "black")   ;; font color
+;; セーブファイルをTempディレクトリへ
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" , temporary-file-directory t)))
+
+;; auto-install
+(require 'auto-install)
+
 
 ;; flex-mode
-;(add-to-list 'load-path "~/.emacs.d")
-;(require 'flex-mode)
-;(add-to-list 'auto-mode-alist '("\\.l$" . flex-mode))
+(require 'flex-mode)
+(add-to-list 'auto-mode-alist '("\\.l$" . flex-mode))
 
 ;; bison-mode
-;(add-to-list 'load-path "~/.emacs.d")
-;(require 'bison-mode)
-;(add-to-list 'auto-mode-alist '("\\.y$" . bison-mode))
+(require 'bison-mode)
+(add-to-list 'auto-mode-alist '("\\.y$" . bison-mode))
 
 ;; ProofGeneral 4.2
-;(load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
+(load-file "~/.emacs.d/ProofGeneral/generic/proof-site.el")
 
 ;; ;;;;
 ;; bison-mode / flex-mode
