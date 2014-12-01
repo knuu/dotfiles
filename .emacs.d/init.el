@@ -27,6 +27,8 @@
   ;; テーマを読み込むための設定
   (color-theme-initialize))
 
+(color-theme-dark-laptop)
+
 ;; 英語フォントはMenlo
 (set-face-attribute 'default nil
 		    :family "Menlo"
@@ -84,3 +86,20 @@
 
 ;; ProofGeneral 4.2
 (load-file "~/.emacs.d/elisp/ProofGeneral/generic/proof-site.el")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; append-tuareg.el - Tuareg quick installation: Append this file to .emacs.
+
+(add-to-list 'load-path "~/.emacs.d/elisp/tuareg-2.0.7")
+(autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
+(autoload 'camldebug "camldebug" "Run the Caml debugger" t)
+(setq auto-mode-alist
+      (append '(("\\.ml[ily]?$" . tuareg-mode)
+                ("\\.topml$" . tuareg-mode))
+              auto-mode-alist))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; setting for Japanese character coding
+
+(modify-coding-system-alist 'file "\\.ml\\w?" 'euc-jp-unix)
+
