@@ -103,3 +103,8 @@
 
 (modify-coding-system-alist 'file "\\.ml\\w?" 'euc-jp-unix)
 
+;; auto-complete
+(add-to-list 'load-path "~/.emacs.d/elisp/")
+(require 'auto-complete-config)
+(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
+(ac-config-default)
