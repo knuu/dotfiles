@@ -6,7 +6,8 @@ fpath=(/usr/local/share/zsh-completions/(N-/) $fpath)
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
-[[ -f $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source $HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#[[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 setopt SHARE_HISTORY
 setopt AUTO_CD
