@@ -108,3 +108,48 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
 (ac-config-default)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; プロコン用テンプレート
+;; auto-insert
+(require 'autoinsert)
+
+;; テンプレートのディレクトリ
+(setq auto-insert-directory "~/.emacs.d/template/")
+
+;; 各ファイルによってテンプレートを切り替える
+(setq auto-insert-alist
+      (nconc '(
+               ("\\.py$" . ["template.py" my-template])
+               ) auto-insert-alist))
+(require 'cl)
+
+;; ここが腕の見せ所
+(defvar template-replacements-alists
+  '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
+    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
+    ("%include-guard%"    . (lambda () (format "__SCHEME_%s__" (upcase (file-name-sans-extension (file-name-nondirectory buffer-file-name))))))))
+
+(defun my-template ()
+  (time-stamp)
+  (mapc #'(lambda(c)
+        (progn
+          (goto-char (point-min))
+          (replace-string (car c) (funcall (cdr c)) nil)))
+    template-replacements-alists)
+  (goto-char (point-max))
+  (message "done."))
+(add-hook 'find-file-not-found-hooks 'auto-insert)
+
+;; install-elisp
+(require 'install-elisp)
+(setq install-elisp-repository-directory "~/.emacs.d/elisp/")
+
+;; redo+
+(require 'redo+)
+(global-set-key (kbd "C-M-/") 'redo)
+(setq undo-no-redo t) ;過去のundoがredoされないようにする
+;; 大量のundoに耐えられるようにする
+(setq undo-limit 600000)
+(setq undo-strong-limit 900000)
