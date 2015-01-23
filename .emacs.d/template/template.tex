@@ -1,0 +1,77 @@
+\documentclass[a4j]{jarticle}
+\usepackage[dvipdfm]{graphicx}
+\usepackage{url}
+\usepackage{ulem}
+\usepackage{listings}
+\usepackage{latexsym}
+\usepackage{comment}
+\title{レポート}
+\author{name}
+\date{\today}
+\begin{document}
+\maketitle
+
+\begin{comment}
+
+% セクション
+\section{section}
+\subsection{subsection}
+
+% 図の出力
+\begin{figure}[hbtp]
+  \begin{center}
+    \includegraphics[width=15cm,bb=0 0 149 105]{ER.png}
+    \caption{fig1}
+    \label{fig:hoge}
+  \end{center}
+\end{figure}
+\end{comment}
+
+% 表
+\begin{table}[htb]
+  \begin{center}
+    \caption{title}
+    \begin{tabular}{l||r|c} 
+      table & foo & bar \\ \hline\hline
+      tab1 & 1 & 2  \\ \hline
+      tab2 & 1 & 2  \\ \hline
+      tab3 & 1 & 2 \\ 
+    \end{tabular}
+    \label{tab:hoge}
+  \end{center}
+\end{table}
+
+% 図表の参照
+\ref{fig:hoge}
+\ref{tab:hoge}
+
+% 箇条書き
+\begin{description}
+\item[item1]\mbox{}\\ 
+\item[item2]\mbox{}\\
+\item[item3]\mbox{}\\
+\end{description}  
+
+
+% そのまま出力
+\begin{verbatim}
+\end{verbatim}
+  
+\verb+ hoge +
+
+% 脚注
+\footnote{hoge}
+
+% 付録
+\appendix
+
+% 引用
+\begin{thebibliography}{99}
+\bibitem{book1} book1
+\bibitem{book2} book2
+\bibitem{page1} page1
+\end{thebibliography}
+
+\end{comment}
+
+\end{document}

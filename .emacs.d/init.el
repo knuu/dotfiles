@@ -122,6 +122,7 @@
 (setq auto-insert-alist
       (nconc '(
                ("\\.py$" . ["template.py" my-template])
+	       ("\\.tex$" . ["template.tex" my-template])
                ) auto-insert-alist))
 (require 'cl)
 

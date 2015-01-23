@@ -2,3 +2,5 @@
 .zsh/.chpwd-recent-dirs
 .zsh/.zcompdump
 
+
+.emacs.d/template/.#template.python

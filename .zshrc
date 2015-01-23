@@ -6,8 +6,7 @@ fpath=(/usr/local/share/zsh-completions/(N-/) $fpath)
 # 色を使用出来るようにする
 autoload -Uz colors
 colors
-#[[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+[[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 setopt SHARE_HISTORY
 setopt AUTO_CD
@@ -81,6 +80,8 @@ alias cp='cp -i'
 alias mv='mv -i'
 
 alias mkdir='mkdir -p'
+alias pdf='open -a Preview'
+alias ltc='/bin/sh ~/latex.sh'
 
 alias ..='cd ..'
 alias ...='cd ../..'
@@ -93,5 +94,10 @@ alias -g G='| grep'
 #alias -g V='| vim -R -'
 alias -g P=' --help | less'
 
+## vertualenv
 export WORKON_HOME=$HOME/.virtualenvs
 source /usr/local/bin/virtualenvwrapper.sh
+
+## rbenv
+export PATH=$HOME/.rbenv/bin:$PATH
+eval "$(rbenv init -)"
