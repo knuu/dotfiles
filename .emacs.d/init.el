@@ -143,14 +143,11 @@
   (message "done."))
 (add-hook 'find-file-not-found-hooks 'auto-insert)
 
-;; install-elisp
-(require 'install-elisp)
-(setq install-elisp-repository-directory "~/.emacs.d/elisp/")
+;; package-manager
+(package-initialize)
+(add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
 
-;; redo+
-(require 'redo+)
-(global-set-key (kbd "C-M-/") 'redo)
-(setq undo-no-redo t) ;過去のundoがredoされないようにする
-;; 大量のundoに耐えられるようにする
-(setq undo-limit 600000)
-(setq undo-strong-limit 900000)
+;; auto-install
+(require 'auto-install)
+(auto-install-compatibility-setup)
