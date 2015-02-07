@@ -103,13 +103,6 @@
 
 (modify-coding-system-alist 'file "\\.ml\\w?" 'euc-jp-unix)
 
-;; auto-complete
-(add-to-list 'load-path "~/.emacs.d/elisp/")
-(require 'auto-complete-config)
-(add-to-list 'ac-dictionary-directories "~/.emacs.d/elisp/ac-dict")
-(ac-config-default)
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; プロコン用テンプレート
 ;; auto-insert
@@ -126,7 +119,6 @@
                ) auto-insert-alist))
 (require 'cl)
 
-;; ここが腕の見せ所
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
@@ -151,3 +143,53 @@
 ;; auto-install
 (require 'auto-install)
 (auto-install-compatibility-setup)
+
+;; redo-tree
+(require 'undo-tree)
+(global-undo-tree-mode t)
+(global-set-key (kbd "M-/") 'undo-tree-redo)
+
+;; auto-complete
+(require 'auto-complete-config)
+(ac-config-default)
+
+;; fly-check(fly-make)
+(global-flycheck-mode t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;; shell
+
+;; PATH
+(dolist (dir (list
+	      "/bin"
+	      "usr/bin"
+	      "/usr/local/bin"
+	      "/Users/admin/.opam/system/bin"
+	      "/Users/admin/.rbenv/bin"
+	      "/Users/admin/.rbenv/shims"
+	      "/usr/local/teTeX/bin"
+	      (expand-file-name "~/bin")
+	      ))
+
+  (when (and (file-exists-p dir) (not (member dir exec-path)))
+    (setenv "PATH" (concat dir ":" (getenv "PATH")))
+    (setq exec-path (append (list dir) exec-path))))
+
+;; MANPATH
+(setenv "MANPATH" (concat "/Users/admin/.opam/system/man:/usr/local/man:/usr/share/man" (getenv "MANPATH")))
+
+;; shell の存在を確認
+(defun skt:shell ()
+  (or (executable-find "zsh")
+      (executable-find "bash")
+      (error "can't find 'shell' command in PATH!!")))
+
+;; Shell 名の設定
+(setq shell-file-name (skt:shell))
+(setenv "SHELL" shell-file-name)
+(setq explicit-shell-file-name shell-file-name)
+
+(set-language-environment  'utf-8)
+(prefer-coding-system 'utf-8)
+
