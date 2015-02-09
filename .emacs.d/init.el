@@ -75,13 +75,13 @@
 ;; auto-install
 (require 'auto-install)
 
-
 ;; ProofGeneral 4.2
 (load-file "~/.emacs.d/elisp/ProofGeneral/generic/proof-site.el")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; append-tuareg.el - Tuareg quick installation: Append this file to .emacs.
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; OCaml
+;; append-tuareg.el - Tuareg quick installation: Append this file to .emacs.
 (add-to-list 'load-path "~/.emacs.d/elisp/tuareg-2.0.7")
 (autoload 'tuareg-mode "tuareg" "Major mode for editing Caml code" t)
 (autoload 'camldebug "camldebug" "Run the Caml debugger" t)
@@ -90,20 +90,19 @@
                 ("\\.topml$" . tuareg-mode))
               auto-mode-alist))
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; setting for Japanese character coding
-
 (modify-coding-system-alist 'file "\\.ml\\w?" 'euc-jp-unix)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; プロコン用テンプレート
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Competitive Programming Template
 ;; auto-insert
 (require 'autoinsert)
 
-;; テンプレートのディレクトリ
+;; directory for templates
 (setq auto-insert-directory "~/.emacs.d/template/")
 
-;; 各ファイルによってテンプレートを切り替える
+;; switch templates by extension
 (setq auto-insert-alist
       (nconc '(
                ("\\.py$" . ["template.py" my-template])
@@ -111,6 +110,7 @@
                ) auto-insert-alist))
 (require 'cl)
 
+;; use templates or not ?
 (defvar template-replacements-alists
   '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
     ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
@@ -127,6 +127,8 @@
   (message "done."))
 (add-hook 'find-file-not-found-hooks 'auto-insert)
 
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; package-manager
 (package-initialize)
 (add-to-list 'package-archives '("marmalade" . "http://marmalade-repo.org/packages/"))
@@ -148,9 +150,9 @@
 ;; fly-check(fly-make)
 (global-flycheck-mode t)
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;; shell
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; shell (TODO!!)
 
 ;; PATH
 (dolist (dir (list
