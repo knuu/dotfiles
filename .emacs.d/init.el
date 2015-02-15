@@ -15,12 +15,18 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf")
 
-;; ツールバー、スクロールバー非表示
+;; hide tool bar, scroll bar
 (when window-system
-  ;; tool-barを非表示
   (tool-bar-mode 0)
-  ;; scroll-barを非表示
   (scroll-bar-mode 0))
+
+;; mode-line
+(display-time-mode 1) ; show time
+(line-number-mode 1) ; show line number
+(column-number-mode 1) ; show column number
+
+
+(setq ring-bell-function 'ignore) ; mute bells
 
 ;; color-theme
 (when (require 'color-theme nil t)
