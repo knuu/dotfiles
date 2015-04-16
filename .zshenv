@@ -12,3 +12,4 @@ source ${HOME}/.zshrc
 # TeX
 export PATH=/usr/local/teTeX/bin:$PATH
 
+export PATH=/Applications/Emacs.app/Contents/MacOS:$PATH

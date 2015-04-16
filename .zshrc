@@ -44,7 +44,7 @@ setopt NO_BEEP
 
 # 補完機能を有効にする
 autoload -Uz compinit
-compinit
+compinit -u
 
 # メニュー選択モードを有効化
 zstyle ':completion:*:default' menu select=2
@@ -101,3 +101,7 @@ source /usr/local/bin/virtualenvwrapper.sh
 ## rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
 eval "$(rbenv init -)"
+
+## pyenv
+export PYENV_ROOT=/usr/local/opt/pyenv
+if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
