@@ -25,6 +25,30 @@
 (line-number-mode 1) ; show line number
 (column-number-mode 1) ; show column number
 
+(defvar mode-line-cleaner-alist
+  '( ;; For minor-mode, first char is 'space'
+    (abbrev-mode . "")
+    (undo-tree-mode . "")
+    (flycheck-mode . "")
+    ;; Major modes
+    (python-mode . "Py")
+    (ruby-mode   . "Rb")
+    (emacs-lisp-mode . "El")
+    (markdown-mode . "Md")))
+
+(defun clean-mode-line ()
+  (interactive)
+  (loop for (mode . mode-str) in mode-line-cleaner-alist
+        do
+        (let ((old-mode-str (cdr (assq mode minor-mode-alist))))
+          (when old-mode-str
+            (setcar old-mode-str mode-str))
+          ;; major mode
+          (when (eq mode major-mode)
+            (setq mode-name mode-str)))))
+
+(add-hook 'after-change-major-mode-hook 'clean-mode-line)
+
 
 (setq ring-bell-function 'ignore) ; mute bells
 
@@ -111,7 +135,6 @@
 ;; switch templates by extension
 (setq auto-insert-alist
       (nconc '(
-               ("\\.py$" . ["template.py" my-template])
 	       ("\\.tex$" . ["template.tex" my-template])
                ) auto-insert-alist))
 (require 'cl)
@@ -156,6 +179,9 @@
 ;; fly-check(fly-make)
 (global-flycheck-mode t)
 
+;; haskell-mode
+(add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
+(add-hook 'haskell-mode-hook 'turn-on-haskell-indent)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; shell (TODO!!)
