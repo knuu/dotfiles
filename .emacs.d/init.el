@@ -186,6 +186,15 @@
 ;; quickrun
 (require 'quickrun)
 
+(quickrun-add-command "c++/c11"
+                      '((:command . "g++-5")
+                        (:exec    . ("%c -std=c++11 %o -o %e %s"
+                                     "%e %a"))
+                        (:remove  . ("%e")))
+                      :default "c++")
+
+(quickrun-set-default "c++" "c++/c11")
+
 ;; markdown-mode
 (autoload 'markdown-mode "markdown-mode"
    "Major mode for editing Markdown files" t)
