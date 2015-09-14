@@ -1,8 +1,8 @@
-from sys import setrecursionlimit as setrec
-setrec(3000)
+import heapq, bisect, math, collections, sys, fractions, copy, functools, operator, itertools, string
 
-def main():
-    pass
+argmax = lambda l: l.index(max(l))
+argmin = lambda l: l.index(min(l))
 
-if __name__ == '__main__':
-    main()
+def read_list(t): return [t(x) for x in input().split()]
+def read_line(t): return t(input())
+def read_lines(t, N): return [t(input()) for _ in range(N)]
