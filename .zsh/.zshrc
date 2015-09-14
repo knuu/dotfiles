@@ -31,6 +31,10 @@ select-word-style default
 zstyle ':zle:*' word-chars " /=;@:{},|"
 zstyle ':zle:*' word-style unspecified
 
+# undo, redo
+bindkey "^_" undo
+bindkey "^[_" redo
+
 # プロンプトの設定
 PROMPT="%{${fg[red]}%}[%n](%*%)%{${reset_color}%} %#~ "
 RPROMPT="%{${fg[red]}%}[%~]%{${reset_color}%}"
@@ -105,3 +109,13 @@ eval "$(rbenv init -)"
 ## pyenv
 export PYENV_ROOT=/usr/local/opt/pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+
+## gcc-5
+alias gcc='gcc-5 -O2'
+alias g++='g++-5 -std=c++11 -Wall -Wextra -O2'
+
+## parscit
+alias parscit='~/Library/parscit/bin/citeExtract.pl'
+
+## jakld
+alias jakld='java -jar jakld.jar'
