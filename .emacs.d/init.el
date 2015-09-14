@@ -102,9 +102,6 @@
 (setq auto-save-file-name-transforms
       `((".*" , temporary-file-directory t)))
 
-;; auto-install
-(require 'auto-install)
-
 ;; ProofGeneral 4.2
 (load-file "~/.emacs.d/elisp/ProofGeneral/generic/proof-site.el")
 
@@ -125,7 +122,6 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Competitive Programming Template
 ;; auto-insert
 (require 'autoinsert)
 
@@ -136,26 +132,10 @@
 (setq auto-insert-alist
       (nconc '(
 	       ("\\.tex$" . ["template.tex" my-template])
+	       ("\\.cpp$" . ["template.cpp" my-template])
+	       ("\\.py$"  . ["template.py"  my-template])
                ) auto-insert-alist))
 (require 'cl)
-
-;; use templates or not ?
-(defvar template-replacements-alists
-  '(("%file%"             . (lambda () (file-name-nondirectory (buffer-file-name))))
-    ("%file-without-ext%" . (lambda () (file-name-sans-extension (file-name-nondirectory (buffer-file-name)))))
-    ("%include-guard%"    . (lambda () (format "__SCHEME_%s__" (upcase (file-name-sans-extension (file-name-nondirectory buffer-file-name))))))))
-
-(defun my-template ()
-  (time-stamp)
-  (mapc #'(lambda(c)
-        (progn
-          (goto-char (point-min))
-          (replace-string (car c) (funcall (cdr c)) nil)))
-    template-replacements-alists)
-  (goto-char (point-max))
-  (message "done."))
-(add-hook 'find-file-not-found-hooks 'auto-insert)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; package-manager
@@ -201,6 +181,11 @@
 ;(add-to-list 'auto-mode-alist '("\\.text\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.markdown\\'" . markdown-mode))
 (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode))
+
+;; python-mode, python-pep8
+(autoload 'python-mode "python-mode" "Python Mode." t)
+(add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
+(add-to-list 'interpreter-mode-alist '("python" . python-mode))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; shell (TODO!!)
