@@ -1,3 +1,4 @@
+
 ;; load-path を追加する関数を定義
 (defun add-to-load-path (&rest paths)
   (let (path)
@@ -49,7 +50,6 @@
 
 (add-hook 'after-change-major-mode-hook 'clean-mode-line)
 
-
 (setq ring-bell-function 'ignore) ; mute bells
 
 ;; color-theme
@@ -59,20 +59,14 @@
 
 (color-theme-dark-laptop)
 
+(if (eq window-system 'ns) (progn
 ;; 英語フォントはMenlo
-(set-face-attribute 'default nil
-		    :family "Menlo"
-		    :height 120)
-
+(set-face-attribute 'default nil :family "Menlo" :height 120)
 ;; 日本語フォントはヒラギノ明朝
-(set-fontset-font 
- nil 'japanese-jisx0208
- (font-spec :family "Osaka"))
-
+(set-fontset-font nil 'japanese-jisx0208 (font-spec :family "Osaka"))
 ;; 半角と全角を1:2に
-(setq face-font-rescale-alist
-      '((".Menlo.*" . 1.0)
-	(".*Osaka.*" . 1.2)))
+(setq face-font-rescale-alist '((".Menlo.*" . 1.0) (".*Osaka.*" . 1.2)))
+))
 
 ;; ハイライト
 (defface my-hl-line-face
@@ -87,14 +81,14 @@
 (setq hl-line-face 'my-hl-line-face)
 (global-hl-line-mode t)
 
-;; paren-mode : 括弧の対応
+;; paren-mode
 (setq show-paren-delay 0)
 (show-paren-mode t)
 ;; parenのスタイル expressionは括弧内も強調
 (setq show-paren-style 'expression)
 ;; フェイスの変更
-(set-face-background 'show-paren-match-face nil)
-(set-face-underline-p 'show-paren-match-face "yellow")
+;;(set-face-background 'show-paren-match-face nil)
+;;(set-face-underline-p 'show-paren-match-face "yellow")
 
 ;; セーブファイルをTempディレクトリへ
 (setq backup-directory-alist
@@ -186,6 +180,19 @@
 (autoload 'python-mode "python-mode" "Python Mode." t)
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
 (add-to-list 'interpreter-mode-alist '("python" . python-mode))
+
+;; clipboard
+(defun copy-from-osx ()
+  (shell-command-to-string "pbpaste"))
+
+(defun paste-to-osx (text &optional push)
+  (let ((process-connection-type nil))
+    (let ((proc (start-process "pbcopy" "*Messages*" "pbcopy")))
+      (process-send-string proc text)
+      (process-send-eof proc))))
+
+(setq interprogram-cut-function 'paste-to-osx)
+(setq interprogram-paste-function 'copy-from-osx)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; shell (TODO!!)
