@@ -100,7 +100,9 @@ alias -g P=' --help | less'
 
 ## vertualenv
 export WORKON_HOME=$HOME/.virtualenvs
-source /usr/local/bin/virtualenvwrapper.sh
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
 ## rbenv
 export PATH=$HOME/.rbenv/bin:$PATH
@@ -119,3 +121,16 @@ alias parscit='~/Library/parscit/bin/citeExtract.pl'
 
 ## jakld
 alias jakld='java -jar jakld.jar'
+
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+# pip zsh completion end
+

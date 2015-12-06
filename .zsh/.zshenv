@@ -2,7 +2,9 @@ export PATH=/usr/local/bin:$PATH
 
 # zsh
 export ZDOTDIR=${HOME}/.zsh
-source ${ZDOTDIR}/.zshrc
+if [ -f ${ZDOTDIR}/.zshrc ]; then
+    source ${ZDOTDIR}/.zshrc
+fi
 
 # TeX
 export PATH=/usr/local/teTeX/bin:$PATH
