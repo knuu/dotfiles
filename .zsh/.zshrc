@@ -134,3 +134,7 @@ function _pip_completion {
 compctl -K _pip_completion pip
 # pip zsh completion end
 
+## Stanford NLP
+export STANFORD_PATH=$HOME/Library/Stanford_NLP
+export PATH=$STANFORD_PATH/stanford-ner-2015-04-20:$STANFORD_PATH/stanford-postagger-full-2015-04-20:$STANFORD_PATH/stanford-parser-full-2015-04-20:$PATH
+export STANFORD_MODELS=$STANFORD_PATH/stanford-postagger-full-2015-04-20/models:$STANFORD_PATH/stanford-ner-2015-04-20/classifier
