@@ -99,6 +99,9 @@
 ;; ProofGeneral 4.2
 (load-file "~/.emacs.d/elisp/ProofGeneral/generic/proof-site.el")
 
+;; save
+(add-hook 'before-save-hook 'delete-trailing-whitespace)
+(add-hook 'before-save-hook 'untabify)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OCaml
@@ -229,4 +232,3 @@
 
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
-
