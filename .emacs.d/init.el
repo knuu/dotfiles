@@ -4,7 +4,7 @@
   (let (path)
     (dolist (path paths paths)
       (let ((default-directory
-	      (expand-file-name (concat user-emacs-directory path))))
+		 (expand-file-name (concat user-emacs-directory path))))
 	(add-to-list 'load-path default-directory)
 	(if (fboundp 'normal-top-level-add-subdirs-to-load-path)
 	    (normal-top-level-add-subdirs-to-load-path))))))
@@ -16,10 +16,24 @@
 (require 'init-loader)
 (init-loader-load "~/.emacs.d/conf")
 
+(menu-bar-mode -1)
 ;; hide tool bar, scroll bar
 (when window-system
   (tool-bar-mode 0)
-  (scroll-bar-mode 0))
+  (scroll-bar-mode 0)
+  (global-linum-mode t)
+  )
+
+;; tab setting
+(setq-default indent-tabs-mode nil) ; use space
+(custom-set-variables '(tab-width 4))
+
+(setq-default line-spacing 0)
+
+(defun my-next-line-n () (interactive) (next-line 6))
+(defun my-prev-line-n () (interactive) (previous-line 6))
+(global-set-key (kbd "M-n") 'my-next-line-n)
+(global-set-key (kbd "M-p") 'my-prev-line-n)
 
 ;; mode-line
 (display-time-mode 1) ; show time
@@ -57,7 +71,9 @@
   ;; テーマを読み込むための設定
   (color-theme-initialize))
 
-(color-theme-dark-laptop)
+(if window-system
+    (color-theme-dark-laptop)
+  (load-theme 'manoj-dark t))
 
 (if (eq window-system 'ns) (progn
 ;; 英語フォントはMenlo
@@ -101,7 +117,8 @@
 
 ;; save
 (add-hook 'before-save-hook 'delete-trailing-whitespace)
-(add-hook 'before-save-hook 'untabify)
+;;(add-hook 'before-save-hook 'untabify)
+(fset 'yes-or-no-p 'y-or-n-p)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OCaml
@@ -153,8 +170,38 @@
 (require 'auto-complete-config)
 (ac-config-default)
 
-;; fly-check(fly-make)
+;; flycheck
+(require 'flycheck)
 (global-flycheck-mode t)
+(defmacro flycheck-define-clike-checker (name command modes)
+  `(flycheck-define-checker ,(intern (format "%s" name))
+     ,(format "A %s checker using %s" name (car command))
+     :command (,@command source-inplace)
+     :standard-input t
+     :error-patterns
+     ((error line-start
+             (message "In file included from") " " (or "<stdin>" (file-name))
+             ":" line ":" column ":" line-end)
+      (info line-start (or "<stdin>" (file-name)) ":" line ":" column
+            ": note: " (message) line-end)
+      (warning line-start (or "<stdin>" (file-name)) ":" line ":" column
+               ": warning: " (message) line-end)
+      (error line-start (or "<stdin>" (file-name)) ":" line ":" column
+             ": " (or "fatal error" "error") ": " (message) line-end))
+     :error-filter
+     (lambda (errors)
+       (flycheck-fold-include-levels (flycheck-sanitize-errors errors)
+                                     "In file included from"))
+     :modes ',modes))
+(flycheck-define-clike-checker g++-5
+                               ("g++-5" "-Wall" "-Wextra" "-std=c++11")
+                               c++-mode)
+(add-to-list 'flycheck-checkers 'g++-5)
+
+;;(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+;;(add-hook 'c++-mode-hook
+;;          (lambda () (setq flycheck-gcc-include-path
+;;                           (list "/usr/local/Cellar/gcc/5.3.0/include/c++/5.3.0/x86_64-apple-darwin14.5.0/"))))
 
 ;; haskell-mode
 (add-hook 'haskell-mode-hook 'turn-on-haskell-doc-mode)
