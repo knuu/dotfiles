@@ -114,7 +114,7 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 
 ## gcc-5
 alias gcc='gcc-5 -O2'
-alias g++='g++-5 -std=c++11 -Wall -Wextra -O2'
+alias g++='g++-5 -std=c++11 -Wall -Wextra -Wfloat-equal -Winit-self -Wlogical-op -D_GLIBCXX_DEBUG -O2'
 
 ## parscit
 alias parscit='~/Library/parscit/bin/citeExtract.pl'
@@ -138,3 +138,6 @@ compctl -K _pip_completion pip
 export STANFORD_PATH=$HOME/Library/Stanford_NLP
 export PATH=$STANFORD_PATH/stanford-ner-2015-04-20:$STANFORD_PATH/stanford-postagger-full-2015-04-20:$STANFORD_PATH/stanford-parser-full-2015-04-20:$PATH
 export STANFORD_MODELS=$STANFORD_PATH/stanford-postagger-full-2015-04-20/models:$STANFORD_PATH/stanford-ner-2015-04-20/classifier
+
+# topcoder
+alias topcoder='open ~/topcoder/ContestAppletProd.jnlp'
