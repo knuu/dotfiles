@@ -141,3 +141,6 @@ export STANFORD_MODELS=$STANFORD_PATH/stanford-postagger-full-2015-04-20/models:
 
 # topcoder
 alias topcoder='open ~/topcoder/ContestAppletProd.jnlp'
+
+# nimble
+export PATH=$HOME/.nimble/bin:$PATH
