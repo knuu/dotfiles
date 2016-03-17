@@ -244,6 +244,10 @@
 (setq interprogram-cut-function 'paste-to-osx)
 (setq interprogram-paste-function 'copy-from-osx)
 
+;; Nim-mode
+(autoload 'nim-mode "nim-mode" "Nim Mode." t)
+(add-to-list 'auto-mode-alist '("\\.nim\\'" . nim-mode))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; shell (TODO!!)
 
