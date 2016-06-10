@@ -8,6 +8,11 @@ autoload -Uz colors
 colors
 [[ -f /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]] && source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+# ls color
+export LSCOLORS=gxfxxxxxcxxxxxxxxxgxgx
+export LS_COLORS='di=01;36:ln=01;35:ex=01;32'
+zstyle ':completion:*' list-colors 'di=36' 'ln=35' 'ex=32'
+
 setopt SHARE_HISTORY
 setopt AUTO_CD
 
@@ -75,7 +80,7 @@ bindkey '^o' history-beginning-search-backward-end
 setopt print_eight_bit
 
 # エイリアス
-alias ls='ls -F'
+alias ls='ls -GF'
 alias la='ls -a'
 alias ll='ls -l'
 
@@ -111,6 +116,7 @@ eval "$(rbenv init -)"
 ## pyenv
 export PYENV_ROOT=/usr/local/opt/pyenv
 if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
+if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 ## gcc-5
 alias gcc='gcc-5 -O2'
@@ -144,3 +150,6 @@ alias topcoder='open ~/topcoder/ContestAppletProd.jnlp'
 
 # nimble
 export PATH=$HOME/.nimble/bin:$PATH
+
+# pandoc_pdf
+alias pandoc2pdf='pandoc -V documentclass=ltjsarticle --latex-engine=lualatex -V geometry:margin=1in'
