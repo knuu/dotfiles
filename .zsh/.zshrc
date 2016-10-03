@@ -79,6 +79,9 @@ bindkey '^o' history-beginning-search-backward-end
 # 日本語ファイル名を表示可能にする
 setopt print_eight_bit
 
+# 正規表現
+setopt nonomatch
+
 # エイリアス
 alias ls='ls -GF'
 alias la='ls -a'
@@ -119,8 +122,8 @@ if which pyenv > /dev/null; then eval "$(pyenv init -)"; fi
 if which pyenv-virtualenv-init > /dev/null; then eval "$(pyenv virtualenv-init -)"; fi
 
 ## gcc-5
-alias gcc='gcc-5 -O2'
-alias g++='g++-5 -std=c++11 -Wall -Wextra -Wfloat-equal -Winit-self -Wlogical-op -D_GLIBCXX_DEBUG -O2'
+alias gcc='gcc-6 -O2'
+alias g++='g++-6 -std=gnu++11 -Wall -Wextra -Wfloat-equal -Winit-self -Wlogical-op -D_GLIBCXX_DEBUG -O2'
 
 ## parscit
 alias parscit='~/Library/parscit/bin/citeExtract.pl'
@@ -153,3 +156,11 @@ export PATH=$HOME/.nimble/bin:$PATH
 
 # pandoc_pdf
 alias pandoc2pdf='pandoc -V documentclass=ltjsarticle --latex-engine=lualatex -V geometry:margin=1in'
+
+# js for mac
+if [[ "$OSTYPE" =~ darwin ]];then
+    jscpath="/System/Library/Frameworks/JavaScriptCore.framework/Versions/A/Resources"
+    if [ -f $jscpath/jsc ];then
+        export PATH=$PATH:$jscpath
+    fi
+fi

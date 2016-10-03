@@ -26,7 +26,15 @@
 
 ;; tab setting
 (setq-default indent-tabs-mode nil) ; use space
-(custom-set-variables '(tab-width 4))
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   (quote
+    (flycheck-google-cpplint flycheck-nim yaml-mode web-mode w3m undo-tree quickrun python-pep8 python-mode php-mode nim-mode markdown-mode init-loader gitignore-mode gitconfig-mode ghc flycheck-haskell cython-mode bison-mode auto-install ac-ispell)))
+ '(tab-width 4))
 
 (setq-default line-spacing 0)
 
@@ -193,10 +201,10 @@
        (flycheck-fold-include-levels (flycheck-sanitize-errors errors)
                                      "In file included from"))
      :modes ',modes))
-(flycheck-define-clike-checker g++-5
-                               ("g++-5" "-Wall" "-Wextra" "-std=c++11")
+(flycheck-define-clike-checker g++-6
+                               ("g++-6" "-Wall" "-Wextra" "-std=c++11")
                                c++-mode)
-(add-to-list 'flycheck-checkers 'g++-5)
+(add-to-list 'flycheck-checkers 'g++-6)
 
 ;;(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 ;;(add-hook 'c++-mode-hook
@@ -253,6 +261,33 @@
 (autoload 'nim-mode "nim-mode" "Nim Mode." t)
 (add-to-list 'auto-mode-alist '("\\.nim\\'" . nim-mode))
 
+(require 'web-mode)
+
+;;; 適用する拡張子
+(add-to-list 'auto-mode-alist '("\\.phtml$"     . web-mode))
+(add-to-list 'auto-mode-alist '("\\.tpl\\.php$" . web-mode))
+(add-to-list 'auto-mode-alist '("\\.jsp$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.as[cp]x$"   . web-mode))
+(add-to-list 'auto-mode-alist '("\\.erb$"       . web-mode))
+(add-to-list 'auto-mode-alist '("\\.html?$"     . web-mode))
+
+;;; インデント数
+(defun web-mode-hook ()
+  "Hooks for Web mode."
+  (setq web-mode-html-offset   2)
+  (setq web-mode-css-offset    2)
+  (setq web-mode-script-offset 2)
+  (setq web-mode-php-offset    2)
+  (setq web-mode-java-offset   2)
+  (setq web-mode-asp-offset    2))
+(add-hook 'web-mode-hook 'web-mode-hook)
+
+;; php-mode
+(autoload 'php-mode "php-mode" "PHP Mode." t)
+(add-to-list 'auto-mode-alist '("\\.php\\'" . php-mode))
+
+(setq ring-bell-function 'ignore)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;; shell (TODO!!)
 
@@ -288,3 +323,9 @@
 
 (set-language-environment  'utf-8)
 (prefer-coding-system 'utf-8)
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )

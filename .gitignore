@@ -6,3 +6,5 @@
 .emacs.d/template/.#template.python
 .emacs.d/auto-save-list/*
 */*.swp
+
+.emacs.d/network-security.data
