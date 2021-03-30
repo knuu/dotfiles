@@ -1,11 +1,11 @@
-export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # zsh
 export ZDOTDIR=${HOME}/.zsh
 source ${ZDOTDIR}/.zshrc
 
 # TeX
-export PATH=/usr/local/teTeX/bin:$PATH
+export PATH=/usr/local/texlive/2019/bin/x86_64-darwin:$PATH
 
 # Emacs.app
 #export PATH=/Applications/Emacs.app/Contents/MacOS:$PATH
