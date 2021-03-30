@@ -1,10 +1,12 @@
-
 .zsh/.chpwd-recent-dirs
 .zsh/.zcompdump
 
-
 .emacs.d/template/.#template.python
 .emacs.d/auto-save-list/*
+.emacs.d/elisp/*
+.emacs.d/elpa/*
+.emacs.d/eshell/*
+.emacs.d/ac-comphist.dat
 */*.swp
 
 .emacs.d/network-security.data
